@@ -2,13 +2,13 @@
 import { serveDir } from "jsr:@std/http/file-server";
 
 //直前の単語を保持しておく
-let previousWord = "しりとり";
+let previousWord = "しりとり";//let:変数を宣言。値を再代入できる。
 
 // localhostにDenoのHTTPサーバーを展開
 Deno.serve(async (_req) => {
     //パス名を取得する
     //http://localhost:8000/hogeに接続した場合"/hoge"が取得できる
-    const pathname = new URL(_req.url).pathname
+    const pathname = new URL(_req.url).pathname//const:定数を宣言。値を再代入できない。
     console.log('pathname: ${pathname}');
 
     //GET /shiritori: 直前の単語を返す
@@ -25,6 +25,24 @@ Deno.serve(async (_req) => {
 
         //previousWordの末尾とnextWordの先頭が同一か確認
         if (previousWord.slice(-1) === nextWord.slice(0, 1)){
+
+             // 末尾が「ん」になっている場合
+             // ifの中に入力された単語の末尾が「ん」になっていることを確認する条件式を追加
+             if (nextWord.slice(-1) === "ん") {
+                 // エラーを返す処理を追加
+                 return new Response(
+                    JSON.stringify({
+                        "errorMessage": "ゲーム終了：入力された単語の末尾が「ん」になっています。",
+                        "errorCode": "10002"
+                    }),
+                    {
+                        status: 400,
+                        headers: { "Content-Type": "application/json; charset=utf-8" },
+                    }
+                );
+                 // errorCodeを固有のものにして、末尾が「ん」の時に発生したエラーだとWeb側に通知できるようにする
+             }
+
             //同一であれば、previousWordを更新
             previousWord = nextWord;
         }

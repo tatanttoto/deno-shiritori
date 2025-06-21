@@ -64,7 +64,20 @@
       if (response.status !== 200) {
         const errorJson = await response.text();
         const errorObj = JSON.parse(errorJson);
-        alert(errorObj["errorMessage"]);
+        //alert(errorObj["errorMessage"]);
+        // errorObj["errorCode"]ごとに処理を分岐する
+        if (errorObj["errorCode"] === "10002") {
+          // errorCodeが、末尾が「ん」の時のエラーだったら、ゲームを終了する
+          alert("ゲーム終了：単語の末尾に「ん」がついたから。");
+        }
+        else if (errorObj["errorCode"] === "10001") {
+          alert("前の単語に続いていません。");
+        }
+        else {
+          alert("エラー:" + errorObj["errorMessage"]);
+        }
+
+        return;
       }
 
       const previousWord = await response.text();
