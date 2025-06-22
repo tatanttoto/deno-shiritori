@@ -40,7 +40,7 @@ Deno.serve(async (_req) => {
                         headers: { "Content-Type": "application/json; charset=utf-8" },
                     }
 
-                    window.location.href = "/gameover.html"
+                    //window.location.href = "/gameover.html"
                 );
                  // errorCodeを固有のものにして、末尾が「ん」の時に発生したエラーだとWeb側に通知できるようにする
              }
