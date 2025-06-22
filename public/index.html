@@ -61,8 +61,9 @@
           // errorCodeが、末尾が「ん」の時のエラーだったら、ゲームを終了する
           alert("ゲーム終了：単語の末尾に「ん」がついたから。");
           //?word=○○○ が URLパラメータ
-          const nextWord = document.querySelector("#nextWordInputText").value;
-          window.location.href = `/game.html?word=${encodeURIComponent(nextWordInputText)}`;
+          const nextWord = document.querySelector("#nextWord").value;
+          console.log("遷移URL:", `/game.html?word=${encodeURIComponent(nextWord)}`);
+          window.location.href = `/game.html?word=${encodeURIComponent(nextWord)}`;
         }
         else if (errorObj["errorCode"] === "10001") {
           alert("前の単語に続いていません。");
