@@ -22,10 +22,9 @@
 
   <!--JavaScriptを実行-->
   <script>
-    //alert("Hello JavaScript!");
     window.onload = async (event) => {
       //GET /shiritoriを実行
-      const response = await fetch("/shiritori", { method: "GET" });
+      const response = await fetch("/shiritori", { method: "GET" });//「fetch で取ってきた情報（テキストデータ）」を読み取る
       //responseの中からレスポンスのテキストデータを取得
       const previousWord = await response.text();
       //id: previousWordのタグを取得
@@ -61,8 +60,8 @@
           // errorCodeが、末尾が「ん」の時のエラーだったら、ゲームを終了する
           alert("ゲーム終了：単語の末尾に「ん」がついたから。");
           //?word=○○○ が URLパラメータ
-          const nextWord = document.querySelector("#nextWord").value;
-          window.location.href = `/game.html?word=${encodeURIComponent(nextWord)}`;
+          //const nextWord = document.querySelector("#nextWordInputText").value;
+          window.location.href = `/game.html?word=${encodeURIComponent(nextWordInputText)}`;
         }
         else if (errorObj["errorCode"] === "10001") {
           alert("前の単語に続いていません。");
