@@ -67,6 +67,9 @@
           document.querySelector("#nextWordInput").remove();
           document.querySelector("#nextWordSendButton").remove();
         }
+        else if (errorObj["errorCode"] === "10003") {
+          alert("この単語はすでに使われました。ゲーム終了！");
+        }
         else if (errorObj["errorCode"] === "10001") {
           alert("前の単語に続いていません。");
         }

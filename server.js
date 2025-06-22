@@ -2,7 +2,8 @@
 import { serveDir } from "jsr:@std/http/file-server";
 
 //直前の単語を保持しておく
-let previousWord = "しりとり";//let:変数を宣言。値を再代入できる。
+//let previousWord = "しりとり";//let:変数を宣言。値を再代入できる。
+let wordHistories = ["しりとり"];
 
 // localhostにDenoのHTTPサーバーを展開
 Deno.serve(async (_req) => {
@@ -44,6 +45,23 @@ Deno.serve(async (_req) => {
                 );
                  // errorCodeを固有のものにして、末尾が「ん」の時に発生したエラーだとWeb側に通知できるようにする
              }
+
+             if (wordHistories.includes(nextWord)) {
+                // エラーを返す処理を追加
+                return new Response(
+                   JSON.stringify({
+                       "errorMessage": "この単語はすでに使われています。",
+                       "errorCode": "10003"
+                   }),
+                   {
+                       status: 400,
+                       headers: { "Content-Type": "application/json; charset=utf-8" },
+                   }
+
+                   //window.location.href = "/gameover.html"
+               );
+                // errorCodeを固有のものにして、末尾が「ん」の時に発生したエラーだとWeb側に通知できるようにする
+            }
 
             //同一であれば、previousWordを更新
             previousWord = nextWord;
