@@ -14,15 +14,15 @@
 <body>
   <!-- bodyタグの中には実際に表示するものなどを書く -->
   <h1>ゲーム終了</h1>
-  <p id="wordDisplay"></p>
+  <p id="finalWordDisplay"></p>
   <script>
-    // URLのクエリパラメータを取得
+    // URLパラメータを取得する
     const params = new URLSearchParams(window.location.search);
-    const word = params.get("nextWord");
+    const finalWord = params.get("word");
 
     // 表示する
-    const paragraph = document.querySelector("#wordDisplay");
-    paragraph.textContent = `あなたが入力した単語: ${word}`;
+    const display = document.querySelector("#finalWordDisplay");
+    display.textContent = `あなたが最後に入力した単語は：「${finalWord}」です。`;
   </script>
   <p>末尾が「ん」になっています。ゲームを終了します。</p>
   <a href="/">もう一度やる</a>
