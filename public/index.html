@@ -19,21 +19,12 @@
   <!--次の文字を入力するフォーム-->
   <input id="nextWordInput" type="text" />
   <button id="nextWordSendButton">送信</button>
-  const nextWord = document.querySelector("#nextWordInput").value;
+
   <!--JavaScriptを実行-->
   <script>
     //alert("Hello JavaScript!");
+    const nextWord = document.querySelector("#nextWordInput").value;
     window.onload = async (event) => {
-      // //試しでPOST /shiritoriを実行してみる
-      // //りんごと入力
-      // await fetch(
-      //   "/shiritori",
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({ nextWord: "きく" })
-      //   }
-      // );
       //GET /shiritoriを実行
       const response = await fetch("/shiritori", { method: "GET" });
       //responseの中からレスポンスのテキストデータを取得
