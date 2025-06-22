@@ -19,7 +19,7 @@
   <!--次の文字を入力するフォーム-->
   <input id="nextWordInput" type="text" />
   <button id="nextWordSendButton">送信</button>
-
+  const nextWord = document.querySelector("#nextWordInput").value;
   <!--JavaScriptを実行-->
   <script>
     //alert("Hello JavaScript!");
@@ -71,7 +71,6 @@
           // errorCodeが、末尾が「ん」の時のエラーだったら、ゲームを終了する
           alert("ゲーム終了：単語の末尾に「ん」がついたから。");
           //?word=○○○ が URLパラメータ
-          const nextWord = document.querySelector("#nextWordInput").value;
           window.location.href = `/game.html?word=${encodeURIComponent(nextWord)}`;
         }
         else if (errorObj["errorCode"] === "10001") {
