@@ -93,7 +93,7 @@ Deno.serve(async (_req) => {
         let previousWord = "しりとり";//let:変数を宣言。値を再代入できる。
         let wordHistories = [previousWord];
         // 初期化した単語を返す
-        return new Response(previousWord);
+        return new Response("リセットしました");
     }
     // ./public以下のファイルを公開
     return serveDir(
