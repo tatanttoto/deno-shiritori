@@ -93,7 +93,10 @@
     // 送信ボタンの押下時に実行
     document.querySelector("#resetSendButton").onclick = async (event) => {
       // POST /resetを実行
+      // サーバーにリセットのPOSTリクエストを送る
+      await fetch("/reset", { method: "POST" });
       // ページをリロードする
+      window.location.reload();
     }
   </script>
 </body>
