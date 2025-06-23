@@ -85,6 +85,16 @@ Deno.serve(async (_req) => {
         //現在の単語を返す
         return new Response(previousWord);
     }
+
+    //POST /reset: リセットする
+    // _req.methodとpathnameを確認
+    if (_req.method === "POST" && pathname === "/reset"){
+        // 既存の単語の履歴を初期化する
+        let previousWord = "しりとり";//let:変数を宣言。値を再代入できる。
+        let wordHistories = [previousWord];
+        // 初期化した単語を返す
+        return new Response(previousWord);
+    }
     // ./public以下のファイルを公開
     return serveDir(
         _req,
