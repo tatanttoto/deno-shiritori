@@ -19,6 +19,8 @@
   <input id="nextWordInput" type="text" />
   <button id="nextWordSendButton">送信</button>
   <button id="resetSendButton">リセット</button>
+  <h2>単語の履歴</h2>
+  <ul id="historyList"></ul>
 
   <!--JavaScriptを実行-->
   <script>
@@ -31,6 +33,17 @@
       const paragraph = document.querySelector("#previousWord");
       //取得したタグの中身を書き換える
       paragraph.innerHTML = `前の単語: ${previousWord}`;
+
+      const resHistory = await fetch("/history");
+      const history = await resHistory.json();
+      const historyList = document.querySelector("#historyList");
+      historyList.innerHTML = ""; // 一旦リセット
+
+      history.forEach(word => {
+        const li = document.createElement("li");
+        li.textContent = word;
+        historyList.appendChild(li);
+      });
     }
 
     //送信ボタンの押下時に実行

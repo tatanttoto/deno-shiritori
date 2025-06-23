@@ -86,6 +86,16 @@ Deno.serve(async (_req) => {
         return new Response(previousWord);
     }
 
+    if (_req.method === "GET" && pathname === "/history") {
+        return new Response(
+          JSON.stringify(wordHistories),
+          {
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+          }
+        );
+      }
+      
+
     //POST /reset: リセットする
     // _req.methodとpathnameを確認
     if (_req.method === "POST" && pathname === "/reset"){
