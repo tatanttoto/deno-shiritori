@@ -2,8 +2,8 @@
 import { serveDir } from "jsr:@std/http/file-server";
 
 //直前の単語を保持しておく
-//let previousWord = "しりとり";//let:変数を宣言。値を再代入できる。
-let wordHistories = ["しりとり"];
+let previousWord = "しりとり";//let:変数を宣言。値を再代入できる。
+let wordHistories = [previousWord];
 
 // localhostにDenoのHTTPサーバーを展開
 Deno.serve(async (_req) => {
@@ -65,6 +65,7 @@ Deno.serve(async (_req) => {
 
             //同一であれば、previousWordを更新
             previousWord = nextWord;
+            wordHistories.push(nextWord);
         }
 
         // 同一でない単語の入力時に、エラーを返す
