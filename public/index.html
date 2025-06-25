@@ -24,6 +24,19 @@
 
   <!--JavaScriptを実行-->
   <script>
+    // 履歴を取得して画面に表示する関数
+    async function updateHistory() {
+      const resHistory = await fetch("/history");
+      const history = await resHistory.json();
+      const historyList = document.querySelector("#historyList");
+      historyList.innerHTML = ""; // 一旦リセット
+
+      history.forEach(word => {
+        const li = document.createElement("li");
+        li.textContent = `・${word}`;
+        historyList.appendChild(li);
+      });
+    }
     window.onload = async (event) => {
       //GET /shiritoriを実行
       const response = await fetch("/shiritori", { method: "GET" });//「fetch で取ってきた情報（テキストデータ）」を読み取る
@@ -34,16 +47,13 @@
       //取得したタグの中身を書き換える
       paragraph.innerHTML = `前の単語: ${previousWord}`;
 
-      const resHistory = await fetch("/history");
-      const history = await resHistory.json();
-      const historyList = document.querySelector("#historyList");
-      historyList.innerHTML = ""; // 一旦リセット
+      await updateHistory(); // ←履歴の表示
 
-      history.forEach(word => {
-        const li = document.createElement("li");
-        li.textContent = word;
-        historyList.appendChild(li);
-      });
+      // history.forEach(word => {
+      //   const li = document.createElement("li");
+      //   li.textContent = word;
+      //   historyList.appendChild(li);
+      // });
     }
 
     //送信ボタンの押下時に実行
@@ -107,6 +117,7 @@
       paragraph.innerHTML = `前の単語: ${previousWord}`;
       //inputタグの中身を消去する
       nextWordInput.value = "";
+      await updateHistory(); // ← ここで履歴を更新
     }
     // 送信ボタンの押下時に実行
     document.querySelector("#resetSendButton").onclick = async (event) => {
