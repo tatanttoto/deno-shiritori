@@ -178,17 +178,18 @@
         //alert(errorObj["errorMessage"]);
         // errorObj["errorCode"]ごとに処理を分岐する
         if (errorObj["errorCode"] === "10002") {
-          // errorCodeが、末尾が「ん」の時のエラーだったら、ゲームを終了する
           alert("ゲーム終了：単語の末尾に「ん」がついたから。");
-          // ゲーム終了メッセージに書き換え
           const paragraph = document.querySelector("#previousWord");
           paragraph.innerText = `ゲーム終了：${nextWordInputText} の末尾が「ん」です`;
 
-          // 入力フォームとボタンを非表示に
           document.querySelector("#nextWordInput").remove();
           document.querySelector("#nextWordSendButton").remove();
         }
         else if (errorObj["errorCode"] === "10003") {
+          alert("この単語はすでに使われました。ゲーム終了！");
+          const paragraph = document.querySelector("#previousWord");
+          paragraph.innerText = `ゲーム終了：${nextWordInputText} が再送されました`;
+
           // 重複単語を赤く表示
           const historyList = document.querySelector("#historyList");
 
@@ -209,7 +210,10 @@
           // 入力フォームとボタンを非表示に
           document.querySelector("#nextWordInput").remove();
           document.querySelector("#nextWordSendButton").remove();
+
+          // updateHistory() を呼ばない ← これが一番大事！
         }
+
         else if (errorObj["errorCode"] === "10001") {
           alert("前の単語に続いていません。");
         }
