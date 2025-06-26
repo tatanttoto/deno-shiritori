@@ -150,6 +150,9 @@
           const paragraph = document.querySelector("#previousWord");
           paragraph.innerText = `ゲーム終了：${nextWordInputText} が再送されました`;
 
+          // 重複した単語も履歴として表示するため、手動で履歴に追加（リストはサーバーから取得するためupdateHistory()を呼ぶ）
+          await updateHistory();
+
           // 入力フォームとボタンを非表示に
           document.querySelector("#nextWordInput").remove();
           document.querySelector("#nextWordSendButton").remove();
