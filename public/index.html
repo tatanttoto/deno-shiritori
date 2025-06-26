@@ -189,16 +189,22 @@
           document.querySelector("#nextWordSendButton").remove();
         }
         else if (errorObj["errorCode"] === "10003") {
-          alert("この単語はすでに使われました。ゲーム終了！");
-          const paragraph = document.querySelector("#previousWord");
-          paragraph.innerText = `ゲーム終了：${nextWordInputText} が再送されました`;
-
+          // 重複単語を赤く表示
           const historyList = document.querySelector("#historyList");
-          const li = document.createElement("li");
-          li.textContent = nextWordInputText;
-          li.style.color = "red";          // すぐ赤にする
-          li.style.fontWeight = "bold";
-          historyList.appendChild(li);
+
+          // すでに表示されている単語リストの中に重複があるか確認して赤くする
+          const liList = historyList.querySelectorAll("li");
+          liList.forEach(li => {
+            if (li.textContent === nextWordInputText) {
+              li.style.color = "red";
+              li.style.fontWeight = "bold";
+            }
+          });
+
+          // 入力した単語も履歴に追加（赤くしなくてOK。上で最初のだけ赤くしたから）
+          const newLi = document.createElement("li");
+          newLi.textContent = nextWordInputText;
+          historyList.appendChild(newLi);
 
           // 入力フォームとボタンを非表示に
           document.querySelector("#nextWordInput").remove();
