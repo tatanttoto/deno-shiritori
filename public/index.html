@@ -24,42 +24,85 @@
 
   <!--JavaScriptを実行-->
   <script>
+
     async function updateHistory() {
       const resHistory = await fetch("/history");
       const history = await resHistory.json();
       const historyList = document.querySelector("#historyList");
       historyList.innerHTML = ""; // 一旦リセット
 
-      const wordToFirstIndex = new Map();
-
-      // 単語の出現数を数える（どれが重複かチェックするため）
       const wordCount = new Map();
-      for (const word of history) {
-        wordCount.set(word, (wordCount.get(word) || 0) + 1);
-      }
+      const wordFirstIndex = new Map();
+      const liElements = [];
 
+      // 出現回数を数える
       history.forEach((word, index) => {
+        wordCount.set(word, (wordCount.get(word) || 0) + 1);
+        if (!wordFirstIndex.has(word)) {
+          wordFirstIndex.set(word, index);
+        }
+      });
+
+      // li要素を作成して一時保存
+      history.forEach(word => {
         const li = document.createElement("li");
         li.textContent = word;
+        liElements.push(li);
+      });
 
-        // 初めて出てきた単語の位置を記録
-        if (!wordToFirstIndex.has(word)) {
-          wordToFirstIndex.set(word, index);
+      // 重複している単語の最初の出現だけ赤くする
+      wordCount.forEach((count, word) => {
+        if (count > 1) {
+          const firstIndex = wordFirstIndex.get(word);
+          const li = liElements[firstIndex];
+          li.style.color = "red";
+          li.style.fontWeight = "bold";
         }
+      });
 
-        // 重複していたら、最初に出てきた li を赤にする
-        if (wordCount.get(word) > 1) {
-          const firstIndex = wordToFirstIndex.get(word);
-          // 一度リストに全部入れないと参照できないので一工夫
-          if (index === firstIndex) {
-            li.style.color = "red";
-            li.style.fontWeight = "bold";
-          }
-        }
-
+      // DOMに反映
+      liElements.forEach(li => {
         historyList.appendChild(li);
       });
     }
+
+
+    // async function updateHistory() {
+    //   const resHistory = await fetch("/history");
+    //   const history = await resHistory.json();
+    //   const historyList = document.querySelector("#historyList");
+    //   historyList.innerHTML = ""; // 一旦リセット
+
+    // //   // 単語の出現数を数える（どれが重複かチェックするため）
+    //   const wordCount = new Map();
+    //   const wordToFirstIndex = new Map();
+
+    //   for (const word of history) {
+    //     wordCount.set(word, (wordCount.get(word) || 0) + 1);
+    //   }
+
+    //   history.forEach((word, index) => {
+    //     const li = document.createElement("li");
+    //     li.textContent = word;
+
+    //     // 初めて出てきた単語の位置を記録
+    //     if (!wordToFirstIndex.has(word)) {
+    //       wordToFirstIndex.set(word, index);
+    //     }
+
+    //     // 重複していたら、最初に出てきた li を赤にする
+    //     if (wordCount.get(word) > 1) {
+    //       const firstIndex = wordToFirstIndex.get(word);
+    //       // 一度リストに全部入れないと参照できないので一工夫
+    //       if (index === firstIndex) {
+    //         li.style.color = "red";
+    //         li.style.fontWeight = "bold";
+    //       }
+    //     }
+
+    //     historyList.appendChild(li);
+    //   });
+    // }
 
     // // 単語の初出インデックスを記録
     // const wordIndexMap = new Map();
