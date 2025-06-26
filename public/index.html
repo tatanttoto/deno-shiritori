@@ -31,35 +31,55 @@
       const historyList = document.querySelector("#historyList");
       historyList.innerHTML = ""; // 一旦リセット
 
-      // 単語の初出インデックスを記録
-      const wordIndexMap = new Map();
+      const wordMap = new Map(); // 単語 → li 要素
 
-      // <li>要素を一時的に配列に保存
-      const liElements = [];
-
-      history.forEach((word, index) => {
+      history.forEach(word => {
         const li = document.createElement("li");
         li.textContent = word;
-        historyList.appendChild(li);
-        liElements.push(li);
 
-        if (wordIndexMap.has(word)) {
-          // すでに出てきた単語 → 最初に出た方を赤くする
-          const firstIndex = wordIndexMap.get(word);
-          liElements[firstIndex].style.color = "red";
-          liElements[firstIndex].style.fontWeight = "bold";
+        // 初めての単語なら記録
+        if (!wordMap.has(word)) {
+          wordMap.set(word, li);
         } else {
-          // 初出の単語は記録
-          wordIndexMap.set(word, index);
+          // すでにあった場合 → 最初のやつを赤にする
+          const firstLi = wordMap.get(word);
+          firstLi.style.color = "red";
+          firstLi.style.fontWeight = "bold";
         }
-      });
 
-      // history.forEach(word => {
-      //   const li = document.createElement("li");
-      //   li.textContent = `${word}`;
-      //   historyList.appendChild(li);
-      // });
+        historyList.appendChild(li);
+      });
     }
+
+    // // 単語の初出インデックスを記録
+    // const wordIndexMap = new Map();
+
+    // // <li>要素を一時的に配列に保存
+    // const liElements = [];
+
+    // history.forEach((word, index) => {
+    //   const li = document.createElement("li");
+    //   li.textContent = word;
+    //   historyList.appendChild(li);
+    //   liElements.push(li);
+
+    //   if (wordIndexMap.has(word)) {
+    //     // すでに出てきた単語 → 最初に出た方を赤くする
+    //     const firstIndex = wordIndexMap.get(word);
+    //     liElements[firstIndex].style.color = "red";
+    //     liElements[firstIndex].style.fontWeight = "bold";
+    //   } else {
+    //     // 初出の単語は記録
+    //     wordIndexMap.set(word, index);
+    //   }
+    // });
+
+    // history.forEach(word => {
+    //   const li = document.createElement("li");
+    //   li.textContent = `${word}`;
+    //   historyList.appendChild(li);
+    // });
+    //}
     window.onload = async (event) => {
       //GET /shiritoriを実行
       const response = await fetch("/shiritori", { method: "GET" });//「fetch で取ってきた情報（テキストデータ）」を読み取る
