@@ -193,14 +193,12 @@
           const paragraph = document.querySelector("#previousWord");
           paragraph.innerText = `ゲーム終了：${nextWordInputText} が再送されました`;
 
-          //  ここで手動追加（ただし仮に /history に追加されないと仮定して）
           const historyList = document.querySelector("#historyList");
           const li = document.createElement("li");
           li.textContent = nextWordInputText;
+          li.style.color = "red";          // すぐ赤にする
+          li.style.fontWeight = "bold";
           historyList.appendChild(li);
-
-          // 重複した単語も履歴として表示するため、手動で履歴に追加（リストはサーバーから取得するためupdateHistory()を呼ぶ）
-          await updateHistory();
 
           // 入力フォームとボタンを非表示に
           document.querySelector("#nextWordInput").remove();
