@@ -81,6 +81,8 @@
     // });
     //}
     window.onload = async (event) => {
+      await fetch("/reset", { method: "POST" }); // ★追加：読み込み時に履歴をリセット
+
       //GET /shiritoriを実行
       const response = await fetch("/shiritori", { method: "GET" });//「fetch で取ってきた情報（テキストデータ）」を読み取る
       //responseの中からレスポンスのテキストデータを取得
