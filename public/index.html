@@ -31,6 +31,29 @@
       const historyList = document.querySelector("#historyList");
       historyList.innerHTML = ""; // 一旦リセット
 
+      // 単語の初出インデックスを記録
+      const wordIndexMap = new Map();
+
+      // <li>要素を一時的に配列に保存
+      const liElements = [];
+
+      history.forEach((word, index) => {
+        const li = document.createElement("li");
+        li.textContent = word;
+        historyList.appendChild(li);
+        liElements.push(li);
+
+        if (wordIndexMap.has(word)) {
+          // すでに出てきた単語 → 最初に出た方を赤くする
+          const firstIndex = wordIndexMap.get(word);
+          liElements[firstIndex].style.color = "red";
+          liElements[firstIndex].style.fontWeight = "bold";
+        } else {
+          // 初出の単語は記録
+          wordIndexMap.set(word, index);
+        }
+      });
+
       history.forEach(word => {
         const li = document.createElement("li");
         li.textContent = `${word}`;
