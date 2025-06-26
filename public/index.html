@@ -24,27 +24,37 @@
 
   <!--JavaScriptを実行-->
   <script>
-    // 履歴を取得して画面に表示する関数
     async function updateHistory() {
       const resHistory = await fetch("/history");
       const history = await resHistory.json();
       const historyList = document.querySelector("#historyList");
       historyList.innerHTML = ""; // 一旦リセット
 
-      const wordMap = new Map(); // 単語 → li 要素
+      const wordToFirstIndex = new Map();
 
-      history.forEach(word => {
+      // 単語の出現数を数える（どれが重複かチェックするため）
+      const wordCount = new Map();
+      for (const word of history) {
+        wordCount.set(word, (wordCount.get(word) || 0) + 1);
+      }
+
+      history.forEach((word, index) => {
         const li = document.createElement("li");
         li.textContent = word;
 
-        // 初めての単語なら記録
-        if (!wordMap.has(word)) {
-          wordMap.set(word, li);
-        } else {
-          // すでにあった場合 → 最初のやつを赤にする
-          const firstLi = wordMap.get(word);
-          firstLi.style.color = "red";
-          firstLi.style.fontWeight = "bold";
+        // 初めて出てきた単語の位置を記録
+        if (!wordToFirstIndex.has(word)) {
+          wordToFirstIndex.set(word, index);
+        }
+
+        // 重複していたら、最初に出てきた li を赤にする
+        if (wordCount.get(word) > 1) {
+          const firstIndex = wordToFirstIndex.get(word);
+          // 一度リストに全部入れないと参照できないので一工夫
+          if (index === firstIndex) {
+            li.style.color = "red";
+            li.style.fontWeight = "bold";
+          }
         }
 
         historyList.appendChild(li);
