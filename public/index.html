@@ -182,6 +182,11 @@
           const paragraph = document.querySelector("#previousWord");
           paragraph.innerText = `ゲーム終了：${nextWordInputText} の末尾が「ん」です`;
 
+          // 入力した単語も履歴に追加（赤くしなくてOK。上で最初のだけ赤くしたから）
+          const newLi = document.createElement("li");
+          newLi.textContent = nextWordInputText;
+          historyList.appendChild(newLi);
+
           document.querySelector("#nextWordInput").remove();
           document.querySelector("#nextWordSendButton").remove();
         }
