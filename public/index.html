@@ -207,9 +207,16 @@
             }
           });
 
-          // 入力した単語も履歴に追加（赤くしなくてOK。上で最初のだけ赤くしたから）
+          // // 入力した単語も履歴に追加（赤くしなくてOK。上で最初のだけ赤くしたから）
+          // const newLi = document.createElement("li");
+          // newLi.textContent = nextWordInputText;
+          // historyList.appendChild(newLi);
+
+          // 今回の入力単語も追加して赤くする
           const newLi = document.createElement("li");
           newLi.textContent = nextWordInputText;
+          newLi.style.color = "red";
+          newLi.style.fontWeight = "bold";
           historyList.appendChild(newLi);
 
           // 入力フォームとボタンを非表示に
