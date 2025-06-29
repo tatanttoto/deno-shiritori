@@ -48,14 +48,14 @@ https://tatanttoto-deno-shirit-64.deno.dev/
 
 間違えたらゲームオーバーになり、入力formが削除される。
 
-# ChatGPTの使用場面
+## ChatGPTの使用場面
 - fetchによるエラー処理や、DOMの書き換え等のコーディング補助
 - 「Uncaught TypeError: Cannot read properties of null」等のエラー解消支援
 - JavaScriptにおける 重複単語の履歴処理（赤く表示） のロジック考案
 - READMEの構成作成
 
 
-#　参考にしたサイト
+## 参考にしたサイト
 ・Githubのpushについて→https://qiita.com/A__Matsuda/items/f71a935612a55d6e674e
 ・javascriptの基本について→https://qiita.com/Miyate2/items/28352f370913d79a4580
 ・リロードの仕方→https://www.sejuku.net/blog/25316
