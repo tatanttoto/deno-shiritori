@@ -56,7 +56,7 @@ https://tatanttoto-deno-shirit-64.deno.dev/
 
 
 ## 参考にしたサイト
-・Githubのpushについて→https://qiita.com/A__Matsuda/items/f71a935612a55d6e674e
-・javascriptの基本について→https://qiita.com/Miyate2/items/28352f370913d79a4580
-・リロードの仕方→https://www.sejuku.net/blog/25316
+- Githubのpushについて→https://qiita.com/A__Matsuda/items/f71a935612a55d6e674e
+- javascriptの基本について→https://qiita.com/Miyate2/items/28352f370913d79a4580
+- リロードの仕方→https://www.sejuku.net/blog/25316
 
